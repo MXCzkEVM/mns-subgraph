@@ -16,7 +16,7 @@ import { NameRegistered as NameRegisteredByController } from "../src/types/EthRe
 import { Registration } from "../src/types/schema";
 
 const ETH_NAMEHASH =
-  "0x93cdeb708b7545dc668eb9280176169d1c33cfd8ed6f04690a0bcc88a93fc4ae";
+  "0xc0ae3fe48f09fde4a60d1b2e3f2c5d1f8dd5922c3ab88ca76377c5fd10816e49";
 
 const DEFAULT_OWNER = "0x89205A3A3b2A69De6Dbf7f01ED13B2108B2c43e7";
 

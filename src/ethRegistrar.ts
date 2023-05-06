@@ -16,7 +16,7 @@ import {
   Transfer as TransferEvent,
 } from "./types/BaseRegistrar/BaseRegistrar";
 
-import { NameRegistered as ControllerNameRegisteredEventOld } from "./types/EthRegistrarControllerOld/EthRegistrarControllerOld";
+// import { NameRegistered as ControllerNameRegisteredEventOld } from "./types/EthRegistrarControllerOld/EthRegistrarControllerOld";
 
 import {
   NameRegistered as ControllerNameRegisteredEvent,
@@ -34,7 +34,7 @@ import {
 } from "./types/schema";
 
 var rootNode: ByteArray = byteArrayFromHex(
-  "93cdeb708b7545dc668eb9280176169d1c33cfd8ed6f04690a0bcc88a93fc4ae"
+  "0xc0ae3fe48f09fde4a60d1b2e3f2c5d1f8dd5922c3ab88ca76377c5fd10816e49"
 );
 
 export function handleNameRegistered(event: NameRegisteredEvent): void {
@@ -53,7 +53,7 @@ export function handleNameRegistered(event: NameRegisteredEvent): void {
   let labelName = ens.nameByHash(label.toHexString());
   if (labelName != null) {
     domain.labelName = labelName;
-    domain.name = labelName! + ".eth";
+    domain.name = labelName! + ".mxc";
     registration.labelName = labelName;
   }
   domain.save();
@@ -68,11 +68,11 @@ export function handleNameRegistered(event: NameRegisteredEvent): void {
   registrationEvent.save();
 }
 
-export function handleNameRegisteredByControllerOld(
-  event: ControllerNameRegisteredEventOld
-): void {
-  setNamePreimage(event.params.name, event.params.label, event.params.cost);
-}
+// export function handleNameRegisteredByControllerOld(
+//   event: ControllerNameRegisteredEventOld
+// ): void {
+//   setNamePreimage(event.params.name, event.params.label, event.params.cost);
+// }
 
 export function handleNameRegisteredByController(
   event: ControllerNameRegisteredEvent
@@ -98,7 +98,7 @@ function setNamePreimage(name: string, label: Bytes, cost: BigInt): void {
   let domain = Domain.load(crypto.keccak256(concat(rootNode, label)).toHex())!;
   if (domain.labelName !== name) {
     domain.labelName = name;
-    domain.name = name + ".eth";
+    domain.name = name + ".mxc";
     domain.save();
   }
 
