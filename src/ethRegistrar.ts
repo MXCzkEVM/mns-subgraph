@@ -34,7 +34,7 @@ import {
 } from "./types/schema";
 
 var rootNode: ByteArray = byteArrayFromHex(
-  "0xc0ae3fe48f09fde4a60d1b2e3f2c5d1f8dd5922c3ab88ca76377c5fd10816e49"
+  "c0ae3fe48f09fde4a60d1b2e3f2c5d1f8dd5922c3ab88ca76377c5fd10816e49"
 );
 
 export function handleNameRegistered(event: NameRegisteredEvent): void {
