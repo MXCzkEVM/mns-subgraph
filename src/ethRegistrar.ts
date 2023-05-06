@@ -30,8 +30,8 @@ import {
   NameRegistered,
   NameRenewed,
   NameTransferred,
-  Registration,
-} from "./types/schema";
+  Registration, WrappedDomain
+} from './types/schema';
 
 var rootNode: ByteArray = byteArrayFromHex(
   "c0ae3fe48f09fde4a60d1b2e3f2c5d1f8dd5922c3ab88ca76377c5fd10816e49"
@@ -50,7 +50,7 @@ export function handleNameRegistered(event: NameRegisteredEvent): void {
   registration.expiryDate = event.params.expires;
   registration.registrant = account.id;
 
-  let labelName = ens.nameByHash(label.toHexString());
+  let labelName = domain.labelName
   if (labelName != null) {
     domain.labelName = labelName;
     domain.name = labelName! + ".mxc";

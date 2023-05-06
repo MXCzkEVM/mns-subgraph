@@ -171,6 +171,10 @@ function makeWrappedTransfer(
     wrappedDomain = new WrappedDomain(namehash);
   }
   wrappedDomain.owner = _to.id;
+  wrappedDomain.domain = domain.id;
+  wrappedDomain.expiryDate = BigInt.fromI32(0);
+  wrappedDomain.fuses = 0;
+  wrappedDomain.name = "";
   wrappedDomain.save();
   const wrappedTransfer = new WrappedTransfer(eventID);
   wrappedTransfer.domain = domain.id;

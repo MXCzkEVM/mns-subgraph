@@ -19,8 +19,8 @@ import {
   NewResolver,
   NewTTL,
   Resolver,
-  Transfer,
-} from "./types/schema";
+  Transfer, WrappedDomain
+} from './types/schema';
 
 const BIG_INT_ZERO = BigInt.fromI32(0);
 
@@ -101,7 +101,8 @@ function _handleNewOwner(event: NewOwnerEvent, isMigrated: boolean): void {
 
   if (domain.name == null) {
     // Get label and node names
-    let label = ens.nameByHash(event.params.label.toHexString());
+    // let label = ens.nameByHash(event.params.label.toHexString());
+    let label = ""
     if (label != null) {
       domain.labelName = label;
     }
@@ -113,7 +114,7 @@ function _handleNewOwner(event: NewOwnerEvent, isMigrated: boolean): void {
       event.params.node.toHexString() ==
       "0x0000000000000000000000000000000000000000000000000000000000000000"
     ) {
-      domain.name = label;
+      domain.name = label!;
     } else {
       parent = parent!;
       let name = parent.name;
