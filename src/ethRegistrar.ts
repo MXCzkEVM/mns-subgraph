@@ -5,7 +5,7 @@ import {
   byteArrayFromHex,
   checkValidLabel,
   concat,
-  createEventID,
+  createEventID, EMPTY_ADDRESS, ROOT_NODE,
   uint256ToByteArray,
 } from "./utils";
 
@@ -43,7 +43,10 @@ export function handleNameRegistered(event: NameRegisteredEvent): void {
 
   let label = uint256ToByteArray(event.params.id);
   let registration = new Registration(label.toHex());
-  let domain = Domain.load(crypto.keccak256(concat(rootNode, label)).toHex())!;
+  let domain = Domain.load(crypto.keccak256(concat(rootNode, label)).toHex());
+  if(!domain) {
+    return;
+  }
 
   registration.domain = domain.id;
   registration.registrationDate = event.block.timestamp;
