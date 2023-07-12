@@ -15,7 +15,7 @@
     "docker:deploy-local": "graph deploy graphprotocol/ens --debug --ipfs http://ens-app_ipfs_1:5001 --node http://ens-app_graph-node_1:8020/ --version-label 0.0.1",
     "docker:remove-local": "graph remove graphprotocol/ens --node http://ens-app_graph-node_1:8020",
     "build": "graph build",
-    "deploy": "graph deploy mnsdomains/mns --ipfs http://45.63.52.231:5001 --node http://45.63.52.231:8020",
+    "deploy": "graph deploy mnsdomains/mns --ipfs http://149.28.212.112:5001 --node http://149.28.212.112:8020",
     "watch-local": "graph deploy graphprotocol/ens --watch --debug --node http://127.0.0.1:8020/ --ipfs http://localhost:5001"
   },
   "devDependencies": {
