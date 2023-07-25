@@ -169,12 +169,11 @@ function makeWrappedTransfer(
   // so we need to create the WrappedDomain entity here
   if (wrappedDomain == null) {
     wrappedDomain = new WrappedDomain(namehash);
+    wrappedDomain.expiryDate = BigInt.fromI32(0);
+    wrappedDomain.fuses = 0;
   }
   wrappedDomain.owner = _to.id;
   wrappedDomain.domain = domain.id;
-  wrappedDomain.expiryDate = BigInt.fromI32(0);
-  wrappedDomain.fuses = 0;
-  wrappedDomain.name = "";
   wrappedDomain.save();
   const wrappedTransfer = new WrappedTransfer(eventID);
   wrappedTransfer.domain = domain.id;
