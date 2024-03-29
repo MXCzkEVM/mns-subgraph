@@ -8,9 +8,9 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: ENSRegistry
-    network: mainnet
+    network: geneva
     source:
-      address: "0x4E7984fF74569a270765EE67792386cBA77D1b01"
+      address: "0x9691E2eFb8C7f6d714A7b35da3184b8cB927a415"
       abi: EnsRegistry
       startBlock: 0
     mapping:
@@ -36,7 +36,7 @@ dataSources:
           handler: handleNewTTL
   - kind: ethereum/contract
     name: Resolver
-    network: mainnet
+    network: geneva
     source:
       abi: Resolver
     mapping:
@@ -84,9 +84,9 @@ dataSources:
           handler: handleVersionChanged
   - kind: ethereum/contract
     name: BaseRegistrar
-    network: mainnet
+    network: geneva
     source:
-      address: "0x39c47d083364b4A23d085c7945Fac9d42457d8C7"
+      address: "0xcf83cFaB3E0755557136d5f43860C304d24ccac1"
       abi: BaseRegistrar
       startBlock: 0
     mapping:
@@ -111,9 +111,9 @@ dataSources:
           handler: handleNameTransferred
   - kind: ethereum/contract
     name: EthRegistrarController
-    network: mainnet
+    network: geneva
     source:
-      address: "0xD9EeC15002fF7467a6841EDF6ea2D1048BaBc7c4"
+      address: "0x231cFEAE98514F825740707Fb0C95BBf8C526AB1"
       abi: EthRegistrarController
       startBlock: 380000
     mapping:
@@ -135,9 +135,9 @@ dataSources:
           handler: handleNameRenewedByController
   - kind: ethereum/contract
     name: NameWrapper
-    network: mainnet
+    network: geneva
     source:
-      address: "0x2246EdAd0bc9212Bae82D43974619480A9D1f387"
+      address: "0xCE5e3c318BFC7c2dee486cF7c62Ba95feFd6d2bD"
       abi: NameWrapper
       startBlock: 380000
     mapping:
