@@ -115,7 +115,7 @@ dataSources:
     source:
       address: "0x231cFEAE98514F825740707Fb0C95BBf8C526AB1"
       abi: EthRegistrarController
-      startBlock: 380000
+      startBlock: 0
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -139,7 +139,7 @@ dataSources:
     source:
       address: "0xCE5e3c318BFC7c2dee486cF7c62Ba95feFd6d2bD"
       abi: NameWrapper
-      startBlock: 380000
+      startBlock: 0
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
