@@ -9,6 +9,8 @@ export function createEventID(event: ethereum.Event): string {
     .concat(event.logIndex.toString());
 }
 
+export const ETH_NODE =
+  "c0ae3fe48f09fde4a60d1b2e3f2c5d1f8dd5922c3ab88ca76377c5fd10816e49";
 export const ROOT_NODE =
   "0x0000000000000000000000000000000000000000000000000000000000000000";
 export const EMPTY_ADDRESS = "0x0000000000000000000000000000000000000000";
@@ -82,4 +84,22 @@ export function checkValidLabel(name: string): boolean {
   }
 
   return true;
+}
+
+// Custom implementation of nameByHash function
+export function nameByHash(hash: string): string | null {
+  // This is a placeholder implementation
+  // In a real implementation, you would:
+  // 1. Look up the hash in a mapping or database
+  // 2. Return the corresponding name if found
+  // 3. Return null if not found
+
+  // For now, just log that this function was called and return null
+  log.debug("nameByHash called with hash: {}", [hash]);
+
+  // Here you would implement your custom logic to resolve names from hashes
+  // This might involve maintaining a mapping of known hash-to-name pairs
+  // or integrating with another system that can provide this mapping
+
+  return null;
 }

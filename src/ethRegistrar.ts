@@ -5,8 +5,9 @@ import {
   byteArrayFromHex,
   checkValidLabel,
   concat,
-  createEventID, EMPTY_ADDRESS, ROOT_NODE,
+  createEventID,
   uint256ToByteArray,
+  nameByHash,
 } from "./utils";
 
 // Import event types from the registry contract ABI
@@ -30,35 +31,36 @@ import {
   NameRegistered,
   NameRenewed,
   NameTransferred,
-  Registration, WrappedDomain
-} from './types/schema';
+  Registration,
+} from "./types/schema";
+
+const GRACE_PERIOD_SECONDS = BigInt.fromI32(7776000); // 90 days
 
 var rootNode: ByteArray = byteArrayFromHex(
   "c0ae3fe48f09fde4a60d1b2e3f2c5d1f8dd5922c3ab88ca76377c5fd10816e49"
 );
-
 export function handleNameRegistered(event: NameRegisteredEvent): void {
   let account = new Account(event.params.owner.toHex());
   account.save();
 
   let label = uint256ToByteArray(event.params.id);
   let registration = new Registration(label.toHex());
-  let domain = Domain.load(crypto.keccak256(concat(rootNode, label)).toHex());
-  if(!domain) {
-    return;
-  }
+  let domain = Domain.load(crypto.keccak256(concat(rootNode, label)).toHex())!;
 
   registration.domain = domain.id;
   registration.registrationDate = event.block.timestamp;
   registration.expiryDate = event.params.expires;
   registration.registrant = account.id;
 
-  let labelName = domain.labelName
-  if (labelName != null) {
-    domain.labelName = labelName;
-    domain.name = labelName! + ".mxc";
-    registration.labelName = labelName;
-  }
+  domain.registrant = account.id;
+  domain.expiryDate = event.params.expires.plus(GRACE_PERIOD_SECONDS);
+  //
+  // let labelName = ens.nameByHash(label.toHexString());
+  // if (labelName != null) {
+  //   domain.labelName = labelName;
+  //   domain.name = labelName! + ".mxc";
+  //   registration.labelName = labelName;
+  // }
   domain.save();
   registration.save();
 
@@ -115,8 +117,13 @@ function setNamePreimage(name: string, label: Bytes, cost: BigInt): void {
 export function handleNameRenewed(event: NameRenewedEvent): void {
   let label = uint256ToByteArray(event.params.id);
   let registration = Registration.load(label.toHex())!;
+  let domain = Domain.load(crypto.keccak256(concat(rootNode, label)).toHex())!;
+
   registration.expiryDate = event.params.expires;
+  domain.expiryDate = event.params.expires.plus(GRACE_PERIOD_SECONDS);
+
   registration.save();
+  domain.save();
 
   let registrationEvent = new NameRenewed(createEventID(event));
   registrationEvent.registration = registration.id;
@@ -134,7 +141,12 @@ export function handleNameTransferred(event: TransferEvent): void {
   let registration = Registration.load(label.toHex());
   if (registration == null) return;
 
+  let domain = Domain.load(crypto.keccak256(concat(rootNode, label)).toHex())!;
+
   registration.registrant = account.id;
+  domain.registrant = account.id;
+
+  domain.save();
   registration.save();
 
   let transferEvent = new NameTransferred(createEventID(event));
